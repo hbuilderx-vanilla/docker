@@ -20,8 +20,11 @@ RUN unzip /opt/core-3.9.5.zip -d /opt/ \
 
 # Install HBuilderX core dependencies
 COPY core-install.sh /root/
+RUN chmod +x /root/core-install.sh
+# Need manual run it if minimal version
+# RUN /root/core-install.sh
 
-# Install and Start api server
+# Install and start api server
 WORKDIR /root
 RUN git clone ${API_SERVER_URL}
 WORKDIR /root/api-server
