@@ -1,0 +1,1 @@
+docker run --name hbuilder-core -it hbuilder-core
