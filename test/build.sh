@@ -1,1 +1,1 @@
-docker build -t hbuilder-core ..
+docker build -t hbuilder-vanilla ..

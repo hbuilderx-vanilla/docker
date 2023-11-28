@@ -1,3 +1,3 @@
-docker stop hbuilder-core
-docker rm hbuilder-core
-docker rmi hbuilder-core 
+docker stop hbuilder-vanilla
+docker rm hbuilder-vanilla
+docker rmi hbuilder-vanilla 
