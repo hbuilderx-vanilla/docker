@@ -4,6 +4,7 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const { build } = require('./build');
+const { packageDist } = require('./packageDist');
 
 const LISTEN_PORT = 3000;
 const app = new Koa();
@@ -21,8 +22,13 @@ app.use(async (ctx, next) => {
         const query = ctx.request.query;
         if (query.project) {
             const buildResult = await build(query.project).catch(e => e);
-            ctx.body = buildResult;
-        } else ctx.body = 'Need params: {project: string}'
+            if (buildResult) {
+                const packageResult = await packageDist(query.project).catch(e => e);
+                ctx.body = packageResult;
+            } else ctx.body = false;
+        } else {
+            ctx.body = 'Need params: {project: string}';
+        }
     }
     await next();
 });
