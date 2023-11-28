@@ -26,4 +26,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: flymyd/hbuilderx-vanilla:latest
+        tags: flymyd114/hbuilderx-vanilla:latest
