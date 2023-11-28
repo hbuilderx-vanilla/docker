@@ -24,3 +24,9 @@ exit
 访问`http://127.0.0.1:13300`以检查API服务是否正确启动。
 
 打包示例：
+
+```sh
+curl --location 'http://localhost:13300/build?project=crp-app'
+```
+
+产物将会在`/projects/crp-app/wgt-dist`中生成。
