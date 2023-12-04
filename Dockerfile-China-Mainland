@@ -20,7 +20,7 @@ COPY --from=node /usr/local/bin /usr/local/bin
 RUN npm install -g yarn --force \ 
     && npm config set registry https://registry.npmmirror.com
 
-# Inject HBuilderX core
+# Inject HBuilderX 3.9.5 core
 COPY core-3.9.5.zip /opt/
 RUN unzip /opt/core-3.9.5.zip -d /opt/ \
     && rm /opt/core-3.9.5.zip && mkdir /projects
@@ -33,8 +33,8 @@ RUN chmod +x /root/core-install.sh
 
 # Install and start api server
 WORKDIR /root
-RUN git clone ${API_SERVER_URL}
-WORKDIR /root/api-server
-RUN cd /root/api-server && npm i
+RUN git clone ${API_SERVER_URL} && \
+    cd api-server && \
+    npm i
 EXPOSE 3000
 CMD [ "node","/root/api-server/index.js" ]

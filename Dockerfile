@@ -2,7 +2,7 @@ ARG NODE_VERSION=16.17.1
 ARG ALPINE_VERSION=3.18
 FROM node:${NODE_VERSION}-alpine AS node
 FROM alpine:${ALPINE_VERSION}
-ENV API_SERVER_URL=https://gitclone.com/github.com/hbuilderx-vanilla/api-server.git
+ENV API_SERVER_URL=https://github.com/hbuilderx-vanilla/api-server.git
 
 RUN apk update && \
     apk add --no-cache bash unzip wget git && \
@@ -14,9 +14,9 @@ COPY --from=node /usr/local/include /usr/local/include
 COPY --from=node /usr/local/bin /usr/local/bin
 RUN npm install -g yarn --force
 
-COPY core-3.9.5.zip /opt/
-RUN unzip /opt/core-3.9.5.zip -d /opt/ && \
-    rm /opt/core-3.9.5.zip && \
+COPY core-3.9.8.zip /opt/
+RUN unzip /opt/core-3.9.8.zip -d /opt/ && \
+    rm /opt/core-3.9.8.zip && \
     mkdir /projects
 
 COPY core-install.sh /root/
