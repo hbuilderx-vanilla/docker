@@ -3,7 +3,7 @@ ARG ALPINE_VERSION=3.18
 FROM node:${NODE_VERSION}-alpine AS node
 ARG ALPINE_VERSION
 FROM alpine:${ALPINE_VERSION}
-ENV API_SERVER_URL=https://gitclone.com/github.com/hbuilderx-vanilla/api-server.git
+ENV API_SERVER_URL=https://github.com/hbuilderx-vanilla/api-server.git
 RUN apk update && apk add --no-cache bash unzip wget git
 
 # Install node-16.17.1
