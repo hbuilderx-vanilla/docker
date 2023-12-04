@@ -32,7 +32,6 @@ jobs:
       with:
         images: flymyd114/hbuilderx-vanilla
         tags: |
-          type=ref,event=branch
           type=semver,pattern={{version}}
 
     - name: Build and push Docker image
