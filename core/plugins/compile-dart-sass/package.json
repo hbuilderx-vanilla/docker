@@ -1,0 +1,16 @@
+{
+	"name": "compile-dart-scss",
+	"id": "compile-dart-scss",
+	"version": "0.0.3",
+	"displayName": "%displayName%",
+	"description": "%description%",
+	"engines": {
+		"HBuilderX": "^3.2.6"
+	},
+	"dependencies": {
+		"sass": "^1.43.4"
+	},
+	"extensionDependencies": [
+		"npm"
+	]
+}
