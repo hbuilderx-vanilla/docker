@@ -14,9 +14,9 @@ COPY --from=node /usr/local/include /usr/local/include
 COPY --from=node /usr/local/bin /usr/local/bin
 RUN npm install -g yarn --force
 
-COPY core-3.9.8.zip /opt/
-RUN unzip /opt/core-3.9.8.zip -d /opt/ && \
-    rm /opt/core-3.9.8.zip && \
+COPY core-3.9.9.zip /opt/
+RUN unzip /opt/core-3.9.9.zip -d /opt/ && \
+    rm /opt/core-3.9.9.zip && \
     mkdir /projects
 
 COPY core-install.sh /root/

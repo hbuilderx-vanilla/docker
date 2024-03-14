@@ -1,7 +1,0 @@
-{
-	"name": "npm",
-  	"version": "1.0.2-2021061515",
-	"__private":true,
-	"__from": "HBuilderX",
-  	"extensionDependencies":["node"]
-}
