@@ -1,3 +1,0 @@
-执行如下命令打包新版核心（以macOS 3.9.9为例）：
-core-build.sh 3.9.9 /Applications/HBuilderX.app/Contents/HBuilderX/plugins
-第一个参数为HbuilderX版本号，第二个参数为HbuilderX的plugins文件夹路径
