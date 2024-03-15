@@ -14,10 +14,10 @@ COPY --from=node /usr/local/include /usr/local/include
 COPY --from=node /usr/local/bin /usr/local/bin
 RUN npm install -g yarn --force
 
-COPY core-3.9.9.zip /opt/
-RUN unzip /opt/core-3.9.9.zip -d /opt/ && \
-    rm /opt/core-3.9.9.zip && \
-    mkdir /projects
+ARG CORE_VERSION=3.9.9
+COPY core-${CORE_VERSION}.tar.gz /opt/
+RUN tar -xzf /opt/core-${CORE_VERSION}.tar.gz -C /opt/ \
+    && rm /opt/core-${CORE_VERSION}.tar.gz && mkdir /projects
 
 COPY core-install.sh /root/
 RUN chmod +x /root/core-install.sh
