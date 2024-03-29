@@ -33,19 +33,27 @@ curl --location 'http://127.0.0.1:13300/build?project=crp-app'
 
 ## 自行构建指定版本
 
-以下脚本均在macOS环境下编写，Windows用户请自行参阅源码修改。特别要注意的是`core-build.sh`，Windows版HBuilderX的提取产物略有差异。
-
-1、从本机的HBuilderX中提取核心并打包：
+1、克隆本仓库  
 
 ```shell
-# 注意：该脚本只支持macOS版HBuilderX。如需从Windows版本构建，请自行根据core-build.sh修改。
-# 执行如下命令打包新版核心（以HbuilderX 3.9.9为例）：
-# 第一个参数为HbuilderX版本号，第二个参数为HbuilderX的plugins文件夹路径
-cd build
-./core-build.sh 3.9.9 /Applications/HBuilderX.app/Contents/HBuilderX/plugins
+git clone --filter=blob:limit=4m https://github.com/hbuilderx-vanilla/docker.git
 ```
 
-2、修改Dockerfile-China-Mainland、执行Docker构建脚本并运行测试：
+2、执行打包脚本以从本机的HBuilderX中提取核心：
+
+**以HbuilderX 3.9.9为例：第一个参数为HbuilderX版本号，第二个参数为HbuilderX的plugins文件夹路径。**
+
+```shell
+# macOS
+cd build
+./core-build.sh 3.9.9 /Applications/HBuilderX.app/Contents/HBuilderX/plugins
+
+# Windows (实验性)
+cd build
+./core-build.ps1 3.9.9 "D:\HBuilderX\plugins"
+```
+
+3、修改Dockerfile-China-Mainland、执行Docker构建脚本并运行测试：
 
 ```shell
 # 修改Dockerfile-China-Mainland第17行，将ARG CORE_VERSION=3.9.9替换为你构建的核心版本
