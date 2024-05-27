@@ -1,6 +1,6 @@
 {
   "name": "plugins",
-  "version": "1.0.0.2021062110",
+  "version": "1.0.0.2022092312",
   "extensionDependencies":["node"],
   "description": "",
   "__private":true,

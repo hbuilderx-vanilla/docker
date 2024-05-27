@@ -35,10 +35,10 @@ $package_json = Get-Content $package_json_path | ConvertFrom-Json
 $package_json.devDependencies.PSObject.Properties.Remove("@esbuild/win32-ia32")
 $package_json.devDependencies.PSObject.Properties.Remove("@esbuild/win32-x64")
 if ($package_json.devDependencies.PSObject.Properties.Name -contains "@esbuild/linux-x64") {
-    $package_json.devDependencies."@esbuild/linux-x64" = "0.17.12"
+    $package_json.devDependencies."@esbuild/linux-x64" = "0.20.1"
 }
 else {
-    $package_json.devDependencies | Add-Member -MemberType NoteProperty -Name "@esbuild/linux-x64" -Value "0.17.12"
+    $package_json.devDependencies | Add-Member -MemberType NoteProperty -Name "@esbuild/linux-x64" -Value "0.20.1"
 }
 $package_json | ConvertTo-Json -Depth 100 | Set-Content $package_json_path
 Set-Location -Path $parent_dir
