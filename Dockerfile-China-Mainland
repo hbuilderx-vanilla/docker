@@ -1,7 +1,7 @@
 ARG NODE_VERSION=18.20.0
 ARG ALPINE_VERSION=3.18
-FROM node:${NODE_VERSION}-alpine AS node
-FROM alpine:${ALPINE_VERSION}
+FROM m.daocloud.io/docker.io/library/node:${NODE_VERSION}-alpine AS node
+FROM m.daocloud.io/docker.io/library/alpine:${ALPINE_VERSION}
 ENV API_SERVER_URL=https://mirror.ghproxy.com/https://github.com/hbuilderx-vanilla/api-server.git
 
 # Set China APK Manager Mirrors
@@ -21,7 +21,7 @@ COPY --from=node /usr/local/bin /usr/local/bin
 RUN npm install -g yarn --force \ 
     && npm config set registry https://registry.npmmirror.com
 
-ARG CORE_VERSION=3.9.9
+ARG CORE_VERSION=4.15
 COPY core-${CORE_VERSION}.tar.gz /opt/
 RUN tar -xzf /opt/core-${CORE_VERSION}.tar.gz -C /opt/ \
     && rm /opt/core-${CORE_VERSION}.tar.gz && mkdir /projects

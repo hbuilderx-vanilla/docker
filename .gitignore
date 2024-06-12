@@ -1,1 +1,4 @@
 core/
+.vs
+.idea
+.vscode

@@ -14,7 +14,7 @@ COPY --from=node /usr/local/include /usr/local/include
 COPY --from=node /usr/local/bin /usr/local/bin
 RUN npm install -g yarn --force
 
-ARG CORE_VERSION=3.9.9
+ARG CORE_VERSION=4.15
 COPY core-${CORE_VERSION}.tar.gz /opt/
 RUN tar -xzf /opt/core-${CORE_VERSION}.tar.gz -C /opt/ \
     && rm /opt/core-${CORE_VERSION}.tar.gz && mkdir /projects
