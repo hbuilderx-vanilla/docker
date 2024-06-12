@@ -1,0 +1,1 @@
+docker build -t hbuilder-vanilla -f ../Dockerfile-China-Mainland ..
