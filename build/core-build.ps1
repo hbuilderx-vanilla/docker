@@ -38,6 +38,8 @@ $package_json_path = "$uniapp_cli_vite_dir\package.json"
 $package_json = Get-Content $package_json_path | ConvertFrom-Json
 $package_json.devDependencies.PSObject.Properties.Remove("@esbuild/win32-ia32")
 $package_json.devDependencies.PSObject.Properties.Remove("@esbuild/win32-x64")
+$package_json.devDependencies.PSObject.Properties.Remove("@rollup/rollup-win32-ia32-msvc")
+$package_json.devDependencies.PSObject.Properties.Remove("@rollup/rollup-win32-x64-msvc")
 if ($package_json.devDependencies.PSObject.Properties.Name -contains "@esbuild/linux-x64") {
     $package_json.devDependencies."@esbuild/linux-x64" = "0.20.1"
 }

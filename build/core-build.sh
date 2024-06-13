@@ -30,7 +30,7 @@ cp "$plugins_root/uniapp-cli-vite/package.nls.zh_CN.json" "$plugins_dir/uniapp-c
 cp "$plugins_root/uniapp-cli-vite/yarn.lock" "$plugins_dir/uniapp-cli-vite/"
 
 new_dependency='"@esbuild/linux-x64": "0.17.12"'
-jq '.devDependencies |= with_entries(select(.key != "@esbuild/darwin-arm64" and .key != "@esbuild/darwin-x64" and .key != "fsevents"))' "$plugins_dir/uniapp-cli-vite/package.json" | jq ".devDependencies += {$new_dependency}" > "$plugins_dir/uniapp-cli-vite/temp.json" && mv "$plugins_dir/uniapp-cli-vite/temp.json" "$plugins_dir/uniapp-cli-vite/package.json"
+jq '.devDependencies |= with_entries(select(.key != "@esbuild/darwin-arm64" and .key != "@esbuild/darwin-x64" and .key != "@rollup/rollup-win32-ia32-msvc" and .key != "@rollup/rollup-win32-x64-msvc" and .key != "fsevents"))' "$plugins_dir/uniapp-cli-vite/package.json" | jq ".devDependencies += {$new_dependency}" > "$plugins_dir/uniapp-cli-vite/temp.json" && mv "$plugins_dir/uniapp-cli-vite/temp.json" "$plugins_dir/uniapp-cli-vite/package.json"
 
 # node-sass
 mkdir "$plugins_dir/compile-node-sass"

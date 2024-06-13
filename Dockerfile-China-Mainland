@@ -1,33 +1,33 @@
 ARG NODE_VERSION=18.20.0
 ARG ALPINE_VERSION=3.18
-FROM m.daocloud.io/docker.io/library/node:${NODE_VERSION}-alpine AS node
-FROM m.daocloud.io/docker.io/library/alpine:${ALPINE_VERSION}
+FROM m.daocloud.io/docker.io/library/node:${NODE_VERSION}-bullseye-slim AS node
 ENV API_SERVER_URL=https://mirror.ghproxy.com/https://github.com/hbuilderx-vanilla/api-server.git
 
 # Set China APK Manager Mirrors
-RUN echo "https://mirrors.aliyun.com/alpine/v3.18/main/" > /etc/apk/repositories \
-    && echo "https://mirrors.aliyun.com/alpine/v3.18/community/" >> /etc/apk/repositories
+RUN sed -i 's/http:\/\/deb.debian.org/http:\/\/mirrors.aliyun.com/' /etc/apt/sources.list
 
-RUN apk update && \
-    apk add --no-cache bash unzip wget git && \
-    rm -rf /var/cache/apk/*
+RUN apt update && \
+    apt install -y bash unzip wget git python2 make g++
 
-COPY --from=node /usr/lib /usr/lib
-COPY --from=node /usr/local/lib /usr/local/lib
-COPY --from=node /usr/local/include /usr/local/include
-COPY --from=node /usr/local/bin /usr/local/bin
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# COPY --from=node /usr/lib /usr/lib
+# COPY --from=node /usr/local/lib /usr/local/lib
+# COPY --from=node /usr/local/include /usr/local/include
+# COPY --from=node /usr/local/bin /usr/local/bin
 
 # Set China NPM Mirrors
 RUN npm install -g yarn --force \ 
     && npm config set registry https://registry.npmmirror.com
 
-ARG CORE_VERSION=4.15
+ARG CORE_VERSION=4.15.0
 COPY core-${CORE_VERSION}.tar.gz /opt/
 RUN tar -xzf /opt/core-${CORE_VERSION}.tar.gz -C /opt/ \
     && rm /opt/core-${CORE_VERSION}.tar.gz && mkdir /projects
 
 COPY core-install.sh /root/
 RUN chmod +x /root/core-install.sh
+RUN sed -i 's/\r$//' core-install.sh
 # Need manual run it if minimal version
 # RUN /root/core-install.sh
 
