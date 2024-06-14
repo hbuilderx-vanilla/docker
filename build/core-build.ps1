@@ -12,6 +12,8 @@ if (-not (Test-Path $plugins_dir)) {
 
 Copy-Item -Path "$current_dir\resources\node" -Destination "$plugins_dir" -Recurse
 Expand-Archive -Path "$current_dir\resources\npm.zip" -DestinationPath "$plugins_dir" -Force
+Expand-Archive -Path "$current_dir\resources\compile-node-sass.zip" -DestinationPath "$plugins_dir" -Force
+Expand-Archive -Path "$current_dir\resources\compile-less.zip" -DestinationPath "$plugins_dir" -Force
 # 7zip unzip npm.zip will cause npx error
 # $zipFilePath = Join-Path -Path $current_dir -ChildPath "resources\npm.zip"
 # $7zExePath = Join-Path -Path $current_dir -ChildPath "7z\7za.exe"
@@ -20,7 +22,6 @@ Copy-Item -Path "$current_dir\resources\package.json" -Destination "$plugins_dir
 Copy-Item -Path "$current_dir\resources\package-lock.json" -Destination "$plugins_dir" -Force
 Copy-Item -Path "$plugins_root\about" -Destination "$plugins_dir" -Recurse -Force
 Copy-Item -Path "$plugins_root\compile-dart-sass" -Destination "$plugins_dir" -Recurse -Force
-Copy-Item -Path "$plugins_root\compile-less" -Destination "$plugins_dir" -Recurse -Force
 Copy-Item -Path "$plugins_root\uni_modules" -Destination "$plugins_dir" -Recurse -Force
 Copy-Item -Path "$plugins_root\uni_helpers" -Destination "$plugins_dir" -Recurse -Force
 
@@ -48,20 +49,10 @@ else {
 }
 $package_json | ConvertTo-Json -Depth 100 | Set-Content $package_json_path
 
-# node-sass
-$uniapp_node_sass_dir = "$plugins_dir\compile-node-sass"
-New-Item -ItemType Directory -Path $uniapp_node_sass_dir | Out-Null
-Copy-Item -Path "$plugins_root\compile-node-sass\package.json" -Destination $uniapp_node_sass_dir -Force
-Copy-Item -Path "$plugins_root\compile-node-sass\package.nls.en.json" -Destination $uniapp_node_sass_dir -Force
-Copy-Item -Path "$plugins_root\compile-node-sass\package.nls.json" -Destination $uniapp_node_sass_dir -Force
-Copy-Item -Path "$plugins_root\compile-node-sass\package.nls.zh-cn.json" -Destination $uniapp_node_sass_dir -Force
-Copy-Item -Path "$plugins_root\compile-node-sass\package-lock.json" -Destination $uniapp_node_sass_dir -Force
-
 # uniapp-cli
 $uniapp_cli_dir = "$plugins_dir\uniapp-cli"
 New-Item -ItemType Directory -Path $uniapp_cli_dir | Out-Null
 Copy-Item -Path "$plugins_root\uniapp-cli\bin" -Destination "$uniapp_cli_dir" -Recurse -Force
-Copy-Item -Path "$plugins_root\uniapp-cli\patches" -Destination "$uniapp_cli_dir" -Recurse -Force
 Copy-Item -Path "$plugins_root\uniapp-cli\public" -Destination "$uniapp_cli_dir" -Recurse -Force
 Copy-Item -Path "$plugins_root\uniapp-cli\types" -Destination "$uniapp_cli_dir" -Recurse -Force
 Copy-Item -Path "$plugins_root\uniapp-cli\package.json" -Destination $uniapp_cli_dir -Force
@@ -72,6 +63,23 @@ Copy-Item -Path "$plugins_root\uniapp-cli\postcss.config.js" -Destination $uniap
 Copy-Item -Path "$plugins_root\uniapp-cli\tsconfig.json" -Destination $uniapp_cli_dir -Force
 Copy-Item -Path "$plugins_root\uniapp-cli\update.txt" -Destination $uniapp_cli_dir -Force
 Copy-Item -Path "$plugins_root\uniapp-cli\yarn.lock" -Destination $uniapp_cli_dir -Force
+
+$package_json_vue_cli_path = "$uniapp_cli_dir\package.json"
+$package_json_vue_cli = Get-Content $package_json_vue_cli_path | ConvertFrom-Json
+$package_json_vue_cli.scripts.PSObject.Properties.Remove("postinstall")
+# if ($package_json_vue_cli._moduleAliases.PSObject.Properties.Name -contains "node-sass") {
+#     $package_json_vue_cli._moduleAliases."node-sass" = "../compile-node-sass/node_modules/node-sass"
+# }
+# else {
+#     $package_json_vue_cli._moduleAliases | Add-Member -MemberType NoteProperty -Name "node-sass" -Value "../compile-node-sass/node_modules/node-sass"
+# }
+# if ($package_json_vue_cli.dependencies.PSObject.Properties.Name -contains "sass-loader") {
+#     $package_json_vue_cli.dependencies."sass-loader" = "^13.2.0"
+# }
+# else {
+#     $package_json_vue_cli.dependencies | Add-Member -MemberType NoteProperty -Name "sass-loader" -Value "^13.2.0"
+# }
+$package_json_vue_cli | ConvertTo-Json -Depth 100 | Set-Content $package_json_vue_cli_path
 
 Set-Location -Path $parent_dir
 $tarFilePath = "core-$core_version.tar"
