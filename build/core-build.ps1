@@ -67,18 +67,6 @@ Copy-Item -Path "$plugins_root\uniapp-cli\yarn.lock" -Destination $uniapp_cli_di
 $package_json_vue_cli_path = "$uniapp_cli_dir\package.json"
 $package_json_vue_cli = Get-Content $package_json_vue_cli_path | ConvertFrom-Json
 $package_json_vue_cli.scripts.PSObject.Properties.Remove("postinstall")
-# if ($package_json_vue_cli._moduleAliases.PSObject.Properties.Name -contains "node-sass") {
-#     $package_json_vue_cli._moduleAliases."node-sass" = "../compile-node-sass/node_modules/node-sass"
-# }
-# else {
-#     $package_json_vue_cli._moduleAliases | Add-Member -MemberType NoteProperty -Name "node-sass" -Value "../compile-node-sass/node_modules/node-sass"
-# }
-# if ($package_json_vue_cli.dependencies.PSObject.Properties.Name -contains "sass-loader") {
-#     $package_json_vue_cli.dependencies."sass-loader" = "^13.2.0"
-# }
-# else {
-#     $package_json_vue_cli.dependencies | Add-Member -MemberType NoteProperty -Name "sass-loader" -Value "^13.2.0"
-# }
 $package_json_vue_cli | ConvertTo-Json -Depth 100 | Set-Content $package_json_vue_cli_path
 
 Set-Location -Path $parent_dir
