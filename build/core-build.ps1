@@ -47,6 +47,12 @@ if ($package_json.devDependencies.PSObject.Properties.Name -contains "@esbuild/l
 else {
     $package_json.devDependencies | Add-Member -MemberType NoteProperty -Name "@esbuild/linux-x64" -Value "0.20.1"
 }
+if ($package_json.devDependencies.PSObject.Properties.Name -contains "@rollup/rollup-linux-x64-gnu") {
+    $package_json.devDependencies."@rollup/rollup-linux-x64-gnu" = "4.14.3"
+}
+else {
+    $package_json.devDependencies | Add-Member -MemberType NoteProperty -Name "@rollup/rollup-linux-x64-gnu" -Value "4.14.3"
+}
 $package_json | ConvertTo-Json -Depth 100 | Set-Content $package_json_path
 
 # uniapp-cli
