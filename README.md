@@ -29,6 +29,8 @@ docker exec -it hbuilder-vanilla sh -c "chmod +x /root/core-install.sh && /root/
 curl --location 'http://127.0.0.1:13300/build?project=crp-app'
 ```
 
+build接口接收两个参数：project为项目文件夹名，vueVersion为uniapp项目Vue版本（2或3）
+
 产物将会在`/projects/crp-app/wgt-dist`中生成。
 
 ## 自行构建指定版本
@@ -41,22 +43,22 @@ git clone --filter=blob:limit=4m https://github.com/hbuilderx-vanilla/docker.git
 
 2、执行打包脚本以从本机的HBuilderX中提取核心：
 
-**以HbuilderX 3.9.9为例：第一个参数为HbuilderX版本号，第二个参数为HbuilderX的plugins文件夹路径。**
+**以HbuilderX 4.15.0为例：第一个参数为HbuilderX版本号，第二个参数为HbuilderX的plugins文件夹路径。**
 
 ```shell
-# macOS
+# macOS (实验性，可能未及时更新，请以Windows构建脚本为基准进行同步)
 cd build
-./core-build.sh 3.9.9 /Applications/HBuilderX.app/Contents/HBuilderX/plugins
+./core-build.sh 4.15.0 /Applications/HBuilderX.app/Contents/HBuilderX/plugins
 
-# Windows (实验性)
+# Windows
 cd build
-./core-build.ps1 3.9.9 "D:\HBuilderX\plugins"
+./core-build.ps1 4.15.0 "D:\HBuilderX\plugins"
 ```
 
 3、修改Dockerfile-China-Mainland、执行Docker构建脚本并运行测试：
 
 ```shell
-# 修改Dockerfile-China-Mainland第17行，将ARG CORE_VERSION=3.9.9替换为你构建的核心版本
+# 修改Dockerfile-China-Mainland第17行，将ARG CORE_VERSION=4.15.0替换为你构建的核心版本
 cd test
 ./build.sh
 # 指定要挂载的工程父目录，如/root/projects
