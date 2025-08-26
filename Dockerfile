@@ -1,7 +1,6 @@
 ARG NODE_VERSION=18.20.0
 ARG ALPINE_VERSION=3.18
 FROM node:${NODE_VERSION}-bullseye-slim AS node
-ENV API_SERVER_URL=https://github.com/hbuilderx-vanilla/api-server.git
 
 RUN apt update && \
     apt install -y bash unzip wget git python3 make g++ && \
@@ -21,8 +20,7 @@ RUN chmod +x /root/core-install.sh && \
 
 # Install and start api server
 WORKDIR /root
-RUN git clone ${API_SERVER_URL} && \
-    cd api-server && \
+RUN cd api-server && \
     npm i
 EXPOSE 3000
 CMD [ "node","/root/api-server/index.js" ]
