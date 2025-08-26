@@ -42,10 +42,10 @@ $package_json.devDependencies.PSObject.Properties.Remove("@esbuild/win32-x64")
 $package_json.devDependencies.PSObject.Properties.Remove("@rollup/rollup-win32-ia32-msvc")
 $package_json.devDependencies.PSObject.Properties.Remove("@rollup/rollup-win32-x64-msvc")
 if ($package_json.devDependencies.PSObject.Properties.Name -contains "@esbuild/linux-x64") {
-    $package_json.devDependencies."@esbuild/linux-x64" = "0.20.1"
+    $package_json.devDependencies."@esbuild/linux-x64" = "0.20.2"
 }
 else {
-    $package_json.devDependencies | Add-Member -MemberType NoteProperty -Name "@esbuild/linux-x64" -Value "0.20.1"
+    $package_json.devDependencies | Add-Member -MemberType NoteProperty -Name "@esbuild/linux-x64" -Value "0.20.2"
 }
 if ($package_json.devDependencies.PSObject.Properties.Name -contains "@rollup/rollup-linux-x64-gnu") {
     $package_json.devDependencies."@rollup/rollup-linux-x64-gnu" = "4.14.3"
