@@ -26,7 +26,7 @@ docker exec -it hbuilder-vanilla sh -c "chmod +x /root/core-install.sh && /root/
 打包示例：
 
 ```sh
-curl --location 'http://127.0.0.1:13300/build?project=crp-app'
+curl --location 'http://127.0.0.1:13300/build?project=crp-app&vueVersion=3'
 ```
 
 build接口接收两个参数：project为项目文件夹名，vueVersion为uniapp项目Vue版本（2或3）
@@ -44,6 +44,7 @@ git clone --filter=blob:limit=4m https://github.com/hbuilderx-vanilla/docker.git
 2、执行打包脚本以从本机的HBuilderX中提取核心：
 
 **以HbuilderX 4.15.0为例：第一个参数为HbuilderX版本号，第二个参数为HbuilderX的plugins文件夹路径。**
+**注意，一定要先使用本机HbuilderX分别创建Vue2和Vue3项目并成功进行一次真机调试，以便安装好相应插件。**
 
 ```shell
 # macOS (实验性，可能未及时更新，请以Windows构建脚本为基准进行同步)
