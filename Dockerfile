@@ -4,10 +4,9 @@ FROM node:${NODE_VERSION}-bullseye-slim AS node
 ENV API_SERVER_URL=https://github.com/hbuilderx-vanilla/api-server.git
 
 RUN apt update && \
-    apt install -y bash unzip wget git python3 make g++
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN npm install -g yarn --force
+    apt install -y bash unzip wget git python3 make g++ && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    npm install -g yarn --force
 
 ARG CORE_VERSION=4.15.0
 COPY core-${CORE_VERSION}.tar.gz /opt/
@@ -16,8 +15,9 @@ RUN tar -xzf /opt/core-${CORE_VERSION}.tar.gz -C /opt/ \
     && rm /opt/core-${CORE_VERSION}.tar.gz && mkdir /projects
 
 COPY core-install.sh /root/
-RUN chmod +x /root/core-install.sh
-RUN sed -i 's/\r$//' /root/core-install.sh
+COPY api-server /root/api-server
+RUN chmod +x /root/core-install.sh && \
+    sed -i 's/\r$//' /root/core-install.sh
 
 # Install and start api server
 WORKDIR /root
